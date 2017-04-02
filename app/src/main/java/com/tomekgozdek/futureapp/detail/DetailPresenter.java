@@ -1,8 +1,8 @@
 package com.tomekgozdek.futureapp.detail;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
+import com.tomekgozdek.futureapp.BuildConfig;
 import com.tomekgozdek.futureapp.model.FutureItem;
 import com.tomekgozdek.futureapp.presenter.BasicView;
 import com.tomekgozdek.futureapp.presenter.Presenter;
@@ -10,6 +10,7 @@ import com.tomekgozdek.futureapp.repository.FutureRealmRepository;
 import com.tomekgozdek.futureapp.repository.FutureRealmRepositoryImpl;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * DetailPresenter managing detail order view.
@@ -21,6 +22,7 @@ public class DetailPresenter implements Presenter{
 
     private final View mView;
     private int mOrderId;
+    private FutureItem mCurrentFutureItem;
 
     public DetailPresenter(int orderId, @NonNull View view) {
         mOrderId = orderId;
@@ -39,21 +41,34 @@ public class DetailPresenter implements Presenter{
 
     private void loadOrderId() {
         FutureRealmRepository repository = new FutureRealmRepositoryImpl();
-        FutureItem item = repository.getFutureItemByOrderId(mOrderId);
+        mCurrentFutureItem = repository.getFutureItemByOrderId(mOrderId);
 
         SimpleDateFormat sdf = new SimpleDateFormat("d MMMM, yyyy");
 
-        if(item != null) {
-            mView.loadItemDetails(item, sdf.format(item.getModificationDate()));
-            mView.loadImage(item.getImageUrl());
+        if(BuildConfig.DEBUG){
+            mCurrentFutureItem = new FutureItem();
+            mCurrentFutureItem.setTitle("TEST");
+            mCurrentFutureItem.setDescription("blb bla bla");
+            mCurrentFutureItem.setUrl("http://www.onet.pl/");
+            mCurrentFutureItem.setModificationDate(new Date());
+        }
+
+        if(mCurrentFutureItem != null) {
+            mView.loadItemDetails(mCurrentFutureItem, sdf.format(mCurrentFutureItem.getModificationDate()));
+            mView.loadImage(mCurrentFutureItem.getImageUrl());
         } else {
             mView.onError("No such order");
         }
     }
 
-    interface View extends BasicView {
+    public void moreDetailsSelected() {
+        mView.openFutureItemUrl(mCurrentFutureItem.getUrl());
+    }
+
+    interface View extends BasicView<DetailPresenter> {
         void loadItemDetails(FutureItem item, String date);
         void loadImage(String url);
         void onError(String msg);
+        void openFutureItemUrl(String url);
     }
 }

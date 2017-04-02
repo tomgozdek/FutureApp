@@ -6,9 +6,9 @@ package com.tomekgozdek.futureapp.presenter;
  * Created by TomekG on 2017-04-02.
  */
 
-public interface BasicView {
+public interface BasicView<T> {
     /**
      * Associates view with presenter.
      */
-    void setPresenter(Presenter presenter);
+    void setPresenter(T presenter);
 }

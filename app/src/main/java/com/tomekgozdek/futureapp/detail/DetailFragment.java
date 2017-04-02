@@ -1,5 +1,6 @@
 package com.tomekgozdek.futureapp.detail;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,9 +16,11 @@ import com.tomekgozdek.futureapp.R;
 import com.tomekgozdek.futureapp.databinding.FutureItemDetailLayoutBinding;
 import com.tomekgozdek.futureapp.model.FutureItem;
 import com.tomekgozdek.futureapp.presenter.Presenter;
+import com.tomekgozdek.futureapp.web.WebViewActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by TomekG on 2017-04-02.
@@ -25,7 +28,7 @@ import butterknife.ButterKnife;
 
 public class DetailFragment extends Fragment implements DetailPresenter.View{
 
-    private Presenter mPresenter;
+    private DetailPresenter mPresenter;
     private FutureItemDetailLayoutBinding viewBinding;
 
     @BindView(R.id.image)
@@ -57,7 +60,7 @@ public class DetailFragment extends Fragment implements DetailPresenter.View{
     }
 
     @Override
-    public void setPresenter(Presenter presenter) {
+    public void setPresenter(DetailPresenter presenter) {
         if(presenter != null) {
             mPresenter = presenter;
         } else {
@@ -89,4 +92,15 @@ public class DetailFragment extends Fragment implements DetailPresenter.View{
         errorView.setText(msg);
     }
 
+    @Override
+    public void openFutureItemUrl(String url) {
+        Intent intent = new Intent(getContext(), WebViewActivity.class);
+        intent.putExtra(WebViewActivity.EXTRA_URL, url);
+        getContext().startActivity(intent);
+    }
+
+    @OnClick(R.id.details)
+    public void moreDetailsSelected(){
+        mPresenter.moreDetailsSelected();
+    }
 }
