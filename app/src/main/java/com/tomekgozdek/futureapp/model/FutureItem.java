@@ -4,13 +4,16 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
+import io.realm.RealmObject;
+
 /**
  * Model class representing FutureItem object retrieved from API.
  *
  * Created by TomekG on 2017-04-02.
  */
 
-public class FutureItem {
+public class FutureItem extends RealmObject{
+
     private String title;
     private String description;
     private int orderId;
@@ -72,7 +75,7 @@ public class FutureItem {
         StringBuffer buffer = new StringBuffer();
         buffer.append("ORDER_ID: ").append(getOrderId()).append("\n");
         buffer.append("TITLE: ").append(getTitle()).append("\n");
-        buffer.append("DESC: ").append(getDescription().substring(0, 40)).append("\n");
+        buffer.append("DESC: ").append(getDescription() != null ? getDescription().substring(0, 40) : getDescription()).append("\n");
         buffer.append("URL: ").append(getUrl()).append("\n");
 
         return buffer.toString();
