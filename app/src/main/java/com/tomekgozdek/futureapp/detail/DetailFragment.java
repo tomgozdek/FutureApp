@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import com.tomekgozdek.futureapp.R;
 import com.tomekgozdek.futureapp.presenter.Presenter;
 
+import butterknife.ButterKnife;
+
 /**
  * Created by TomekG on 2017-04-02.
  */
@@ -21,7 +23,15 @@ public class DetailFragment extends Fragment implements DetailPresenter.View{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.future_item_detail_layout, container, false);
+        View view = inflater.inflate(R.layout.future_item_detail_layout, container, false);
+        ButterKnife.bind(this, view);
+
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override

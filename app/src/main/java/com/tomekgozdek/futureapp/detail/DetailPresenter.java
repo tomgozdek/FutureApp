@@ -2,8 +2,11 @@ package com.tomekgozdek.futureapp.detail;
 
 import android.support.annotation.NonNull;
 
+import com.tomekgozdek.futureapp.model.FutureItem;
 import com.tomekgozdek.futureapp.presenter.BasicView;
 import com.tomekgozdek.futureapp.presenter.Presenter;
+import com.tomekgozdek.futureapp.repository.FutureRealmRepository;
+import com.tomekgozdek.futureapp.repository.FutureRealmRepositoryImpl;
 
 /**
  * DetailPresenter managing detail order view.
@@ -26,7 +29,17 @@ public class DetailPresenter implements Presenter{
         }
     }
 
-    interface View extends BasicView {
+    @Override
+    public void onResume() {
+        loadOrderId();
+    }
 
+    private void loadOrderId() {
+        FutureRealmRepository repository = new FutureRealmRepositoryImpl();
+        mView.loadItemDetails(repository.getFutureItemByOrderId(mOrderId));
+    }
+
+    interface View extends BasicView {
+        void loadItemDetails(FutureItem item);
     }
 }

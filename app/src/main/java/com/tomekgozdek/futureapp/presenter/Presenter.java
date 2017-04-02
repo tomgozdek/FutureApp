@@ -7,4 +7,5 @@ package com.tomekgozdek.futureapp.presenter;
  */
 
 public interface Presenter {
+    void onResume();
 }
