@@ -8,47 +8,67 @@
         <variable
             name="date"
             type="String"/>
+        <variable
+            name="presenter"
+            type="com.tomekgozdek.futureapp.detail.DetailPresenter"/>
     </data>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="15dp"
         android:orientation="vertical">
+        <LinearLayout
+                android:id="@+id/details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                android:text="@{futureItem.title}"
+                tools:text="stereocomparator"/>
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="15dp"
+                tools:src="@mipmap/ic_launcher_round"/>
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginBottom="10dp"
+                android:text="@{futureItem.description}"
+                tools:text="Biltong pork loin hamburger alcatra picanha prosciutto.  Prosciutto
+            turkey pancetta salami pork belly, tri-tip sausage bacon doner swine kielbasa brisket.  Andouille leberkas tenderloin doner bresaola meatloaf drumstick ground round.  Shank hamburger strip steak bacon fatback turkey shoulder drumstick chuck corned beef landjaeger boudin flank.  Pork tri-tip bresaola andouille capicola prosciutto.\n\nGround round jowl kevin pancetta shankle frankfurter beef ribs shoulder pork belly pig ham cupim short ribs.  Rump pork belly swine chuck ball tip, fatback capicola burgdoggen prosciutto bresaola strip steak short loin.  Shoulder turducken pastrami ham hock, jowl andouille flank shankle pork chop ball tip kielbasa tail.  Prosciutto ham hock chicken shoulder, biltong t-bone bresaola tongue cow meatball pig tenderloin porchetta."/>
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="@{date}"
+                tools:text="2013-10-31"/>
+        </LinearLayout>
+
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/error"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="15dp"
-            android:text="@{futureItem.title}"
-            tools:text="stereocomparator"/>
-
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="15dp"
-            tools:src="@mipmap/ic_launcher_round"/>
-
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginBottom="10dp"
-            android:text="@{futureItem.description}"
-            tools:text="Biltong pork loin hamburger alcatra picanha prosciutto.  Prosciutto turkey pancetta salami pork belly, tri-tip sausage bacon doner swine kielbasa brisket.  Andouille leberkas tenderloin doner bresaola meatloaf drumstick ground round.  Shank hamburger strip steak bacon fatback turkey shoulder drumstick chuck corned beef landjaeger boudin flank.  Pork tri-tip bresaola andouille capicola prosciutto.\n\nGround round jowl kevin pancetta shankle frankfurter beef ribs shoulder pork belly pig ham cupim short ribs.  Rump pork belly swine chuck ball tip, fatback capicola burgdoggen prosciutto bresaola strip steak short loin.  Shoulder turducken pastrami ham hock, jowl andouille flank shankle pork chop ball tip kielbasa tail.  Prosciutto ham hock chicken shoulder, biltong t-bone bresaola tongue cow meatball pig tenderloin porchetta."/>
-
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:text="@{date}"
-            tools:text="2013-10-31"/>
+            android:layout_marginBottom="15dp"/>
     </LinearLayout>
 
 </layout>

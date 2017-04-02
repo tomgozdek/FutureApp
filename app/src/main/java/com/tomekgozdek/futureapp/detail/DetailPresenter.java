@@ -1,6 +1,7 @@
 package com.tomekgozdek.futureapp.detail;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.tomekgozdek.futureapp.model.FutureItem;
 import com.tomekgozdek.futureapp.presenter.BasicView;
@@ -41,11 +42,12 @@ public class DetailPresenter implements Presenter{
         FutureItem item = repository.getFutureItemByOrderId(mOrderId);
 
         SimpleDateFormat sdf = new SimpleDateFormat("d MMMM, yyyy");
+
         if(item != null) {
             mView.loadItemDetails(item, sdf.format(item.getModificationDate()));
             mView.loadImage(item.getImageUrl());
         } else {
-            mView.onError("Wrong order id");
+            mView.onError("No such order");
         }
     }
 

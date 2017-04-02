@@ -1,12 +1,9 @@
 package com.tomekgozdek.futureapp.detail;
 
-import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +34,12 @@ public class DetailFragment extends Fragment implements DetailPresenter.View{
     @BindView(R.id.description)
     TextView descriptionView;
 
+    @BindView(R.id.error)
+    TextView errorView;
+
+    @BindView(R.id.details)
+    ViewGroup detailsContainer;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -65,6 +68,8 @@ public class DetailFragment extends Fragment implements DetailPresenter.View{
     @Override
     public void loadItemDetails(FutureItem item, String date) {
         if(item != null) {
+            errorView.setVisibility(View.GONE);
+            detailsContainer.setVisibility(View.VISIBLE);
             viewBinding.setFutureItem(item);
             viewBinding.setDate(date);
         }
@@ -72,7 +77,6 @@ public class DetailFragment extends Fragment implements DetailPresenter.View{
 
     @Override
     public void loadImage(String url) {
-        Log.d("TOMEK", "loadImage: ");
         Picasso.with(getContext())
                 .load(url)
                 .into(imageView);
@@ -80,7 +84,9 @@ public class DetailFragment extends Fragment implements DetailPresenter.View{
 
     @Override
     public void onError(String msg) {
-        descriptionView.setText(msg);
+        errorView.setVisibility(View.VISIBLE);
+        detailsContainer.setVisibility(View.GONE);
+        errorView.setText(msg);
     }
 
 }

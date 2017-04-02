@@ -1,5 +1,7 @@
 package com.tomekgozdek.futureapp.model;
 
+import android.databinding.BaseObservable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
