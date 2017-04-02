@@ -8,6 +8,8 @@ import com.tomekgozdek.futureapp.presenter.Presenter;
 import com.tomekgozdek.futureapp.repository.FutureRealmRepository;
 import com.tomekgozdek.futureapp.repository.FutureRealmRepositoryImpl;
 
+import java.text.SimpleDateFormat;
+
 /**
  * DetailPresenter managing detail order view.
  *
@@ -36,10 +38,20 @@ public class DetailPresenter implements Presenter{
 
     private void loadOrderId() {
         FutureRealmRepository repository = new FutureRealmRepositoryImpl();
-        mView.loadItemDetails(repository.getFutureItemByOrderId(mOrderId));
+        FutureItem item = repository.getFutureItemByOrderId(mOrderId);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("d MMMM, yyyy");
+        if(item != null) {
+            mView.loadItemDetails(item, sdf.format(item.getModificationDate()));
+            mView.loadImage(item.getImageUrl());
+        } else {
+            mView.onError("Wrong order id");
+        }
     }
 
     interface View extends BasicView {
-        void loadItemDetails(FutureItem item);
+        void loadItemDetails(FutureItem item, String date);
+        void loadImage(String url);
+        void onError(String msg);
     }
 }

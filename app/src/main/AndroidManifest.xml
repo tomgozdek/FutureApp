@@ -2,6 +2,9 @@
 <manifest package="com.tomekgozdek.futureapp"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- Needed for loading items from api and by picasso lib -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:name=".FutureApp"
