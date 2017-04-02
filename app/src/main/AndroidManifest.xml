@@ -24,6 +24,9 @@
             android:name=".detail.DetailActivity"
             android:exported="true">
         </activity>
+
+        <activity android:name=".web.WebViewActivity">
+        </activity>
     </application>
 
 </manifest>
