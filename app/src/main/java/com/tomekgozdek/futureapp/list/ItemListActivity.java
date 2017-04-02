@@ -1,7 +1,9 @@
-package com.tomekgozdek.futureapp;
+package com.tomekgozdek.futureapp.list;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.tomekgozdek.futureapp.R;
 
 public class ItemListActivity extends AppCompatActivity {
 
