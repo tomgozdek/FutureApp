@@ -26,11 +26,20 @@ public interface FutureRealmRepository {
     void storeFutureItemsAsync(List<FutureItem> list, RepositoryCallback callback);
 
     /**
-     * Returns list of {@link FutureItem}
+     * Returns list of {@link FutureItem} sorted by orderId
      *
      * @return list
      */
     List<FutureItem> getFutureItems();
+
+    /**
+     * Returns {@link FutureItem} specifed by orderId.
+     *
+     * @param orderId the id of {@FutureItem} object
+     *
+     * @return {@link FutureItem} object or null if there was no element for provided id.
+     */
+    FutureItem getFutureItemByOrderId(int orderId);
 
     /**
      * Repository callback to get results of asynchronous repository transactions.

@@ -54,4 +54,11 @@ public class FutureRealmRepositoryImpl implements FutureRealmRepository {
         RealmResults<FutureItem> resultQuery = query.findAllSorted("orderId");
         return resultQuery.subList(0, resultQuery.size()-1);
     }
+
+    @Override
+    public FutureItem getFutureItemByOrderId(int orderId){
+        RealmQuery<FutureItem> query = Realm.getDefaultInstance().where(FutureItem.class);
+        RealmResults<FutureItem> results = query.equalTo("orderId", orderId).findAll();
+        return results.size() > 0 ? results.get(0) : null;
+    }
 }
