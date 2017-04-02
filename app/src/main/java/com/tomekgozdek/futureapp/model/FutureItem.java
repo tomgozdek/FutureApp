@@ -1,5 +1,7 @@
 package com.tomekgozdek.futureapp.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 /**
@@ -13,8 +15,9 @@ public class FutureItem {
     private String description;
     private int orderId;
     private String url;
+    @SerializedName("image_url")
     private String imageUrl;
-    private Date date;
+    private Date modificationDate;
 
     public String getTitle() {
         return title;
@@ -56,11 +59,11 @@ public class FutureItem {
         this.imageUrl = imageUrl;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getModificationDate() {
+        return modificationDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setModificationDate(Date date) {
+        this.modificationDate = date;
     }
 }
