@@ -66,4 +66,15 @@ public class FutureItem {
     public void setModificationDate(Date date) {
         this.modificationDate = date;
     }
+
+    @Override
+    public String toString() {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("ORDER_ID: ").append(getOrderId()).append("\n");
+        buffer.append("TITLE: ").append(getTitle()).append("\n");
+        buffer.append("DESC: ").append(getDescription().substring(0, 40)).append("\n");
+        buffer.append("URL: ").append(getUrl()).append("\n");
+
+        return buffer.toString();
+    }
 }
