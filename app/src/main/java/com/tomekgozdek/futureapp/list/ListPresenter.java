@@ -69,10 +69,6 @@ public class ListPresenter implements Presenter {
         mView.loadItems(repository.getFutureItems());
     }
 
-    public void onItemSelected(int orderId) {
-
-    }
-
     interface View extends BasicView<ListPresenter>{
         void loadItems(List<FutureItem> list);
     }

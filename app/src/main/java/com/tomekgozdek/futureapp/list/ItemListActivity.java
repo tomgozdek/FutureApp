@@ -1,13 +1,15 @@
 package com.tomekgozdek.futureapp.list;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.tomekgozdek.futureapp.R;
+import com.tomekgozdek.futureapp.detail.DetailActivity;
 
 import butterknife.ButterKnife;
 
-public class ItemListActivity extends AppCompatActivity {
+public class ItemListActivity extends AppCompatActivity implements ListFragment.OnItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,5 +33,12 @@ public class ItemListActivity extends AppCompatActivity {
             ListPresenter listPresenter = new ListPresenter(listFragment);
             listFragment.setPresenter(listPresenter);
         }
+    }
+
+    @Override
+    public void onItemSelected(int orderId) {
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra(DetailActivity.EXTRA_ORDER_ID, orderId);
+        startActivity(intent);
     }
 }

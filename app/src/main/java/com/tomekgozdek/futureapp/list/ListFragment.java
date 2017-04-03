@@ -1,5 +1,6 @@
 package com.tomekgozdek.futureapp.list;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -28,6 +29,7 @@ public class ListFragment extends Fragment implements ListPresenter.View, View.O
     @BindView(R.id.future_list)
     RecyclerView futureList;
     private FutureItemAdapter mAdapter;
+    private OnItemSelectedListener mCallback;
 
     @Nullable
     @Override
@@ -49,6 +51,12 @@ public class ListFragment extends Fragment implements ListPresenter.View, View.O
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mCallback = (OnItemSelectedListener) getActivity();
+    }
+
+    @Override
     public void setPresenter(ListPresenter presenter) {
         if(presenter != null) {
             mPresenter = presenter;
@@ -64,6 +72,10 @@ public class ListFragment extends Fragment implements ListPresenter.View, View.O
 
     @Override
     public void onClick(View view) {
-        mPresenter.onItemSelected((Integer) view.getTag());
+        mCallback.onItemSelected((Integer) view.getTag());
+    }
+
+    public interface OnItemSelectedListener {
+        void onItemSelected(int orderId);
     }
 }

@@ -2,7 +2,6 @@ package com.tomekgozdek.futureapp.detail;
 
 import android.support.annotation.NonNull;
 
-import com.tomekgozdek.futureapp.BuildConfig;
 import com.tomekgozdek.futureapp.model.FutureItem;
 import com.tomekgozdek.futureapp.presenter.BasicView;
 import com.tomekgozdek.futureapp.presenter.Presenter;
@@ -10,7 +9,6 @@ import com.tomekgozdek.futureapp.repository.FutureRealmRepository;
 import com.tomekgozdek.futureapp.repository.FutureRealmRepositoryImpl;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * DetailPresenter managing detail order view.
@@ -44,14 +42,6 @@ public class DetailPresenter implements Presenter{
         mCurrentFutureItem = repository.getFutureItemByOrderId(mOrderId);
 
         SimpleDateFormat sdf = new SimpleDateFormat("d MMMM, yyyy");
-
-        if(BuildConfig.DEBUG){
-            mCurrentFutureItem = new FutureItem();
-            mCurrentFutureItem.setTitle("TEST");
-            mCurrentFutureItem.setDescription("blb bla bla");
-            mCurrentFutureItem.setUrl("http://www.onet.pl/");
-            mCurrentFutureItem.setModificationDate(new Date());
-        }
 
         if(mCurrentFutureItem != null) {
             mView.loadItemDetails(mCurrentFutureItem, sdf.format(mCurrentFutureItem.getModificationDate()));
