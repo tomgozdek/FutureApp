@@ -6,10 +6,17 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.tomekgozdek.futureapp.R;
 import com.tomekgozdek.futureapp.detail.DetailActivity;
+import com.tomekgozdek.futureapp.detail.DetailFragment;
+import com.tomekgozdek.futureapp.detail.DetailPresenter;
 
 import butterknife.ButterKnife;
 
 public class ItemListActivity extends AppCompatActivity implements ListFragment.OnItemSelectedListener {
+
+    /** Flag indication that details can be show together with item list, in other words we got
+     * master-detail layout
+     */
+    private boolean showDetails = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +25,7 @@ public class ItemListActivity extends AppCompatActivity implements ListFragment.
 
         ButterKnife.bind(this);
 
+        showDetails = isMasterDetailLayout();
         if(ButterKnife.findById(this, R.id.list_frag_container) != null){
             ListFragment listFragment = (ListFragment) getSupportFragmentManager().findFragmentById(R.id.list_frag_container);
 
@@ -35,10 +43,31 @@ public class ItemListActivity extends AppCompatActivity implements ListFragment.
         }
     }
 
+    private boolean isMasterDetailLayout() {
+        return ButterKnife.findById(this, R.id.detail_frag_container) != null;
+    }
+
     @Override
     public void onItemSelected(int orderId) {
-        Intent intent = new Intent(this, DetailActivity.class);
-        intent.putExtra(DetailActivity.EXTRA_ORDER_ID, orderId);
-        startActivity(intent);
+        showItemDetails(orderId);
+    }
+
+    private void showItemDetails(int orderId) {
+        //if we are not in master-detail layout just start another activity with detail fragment
+        if(!showDetails) {
+            Intent intent = new Intent(this, DetailActivity.class);
+            intent.putExtra(DetailActivity.EXTRA_ORDER_ID, orderId);
+            startActivity(intent);
+        } else {
+            DetailFragment detailFragment = new DetailFragment();
+            DetailPresenter detailPresenter = new DetailPresenter(orderId, detailFragment);
+            detailFragment.setPresenter(detailPresenter);
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.detail_frag_container, detailFragment)
+                    .addToBackStack(null)
+                    .commit();
+        }
     }
 }
