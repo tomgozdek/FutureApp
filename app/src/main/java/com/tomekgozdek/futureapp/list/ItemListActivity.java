@@ -21,12 +21,12 @@ public class ItemListActivity extends AppCompatActivity {
 
             if(listFragment == null){
                 listFragment = new ListFragment();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.list_frag_container, listFragment)
+                        .commit();
             }
 
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.list_frag_container, listFragment)
-                    .commit();
 
             ListPresenter listPresenter = new ListPresenter(listFragment);
             listFragment.setPresenter(listPresenter);
