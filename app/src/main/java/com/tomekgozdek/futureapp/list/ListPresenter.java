@@ -77,6 +77,10 @@ public class ListPresenter implements Presenter {
         }
     }
 
+    public void syncData() {
+        downloadItems();
+    }
+
     interface View extends BasicView<ListPresenter>{
         void loadItems(List<FutureItem> list);
         void showProgress();
