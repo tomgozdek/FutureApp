@@ -12,6 +12,7 @@ import com.squareup.picasso.Picasso;
 import com.tomekgozdek.futureapp.R;
 import com.tomekgozdek.futureapp.model.FutureItem;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import butterknife.BindView;
@@ -24,12 +25,14 @@ import butterknife.ButterKnife;
 class FutureItemAdapter extends RecyclerView.Adapter<FutureItemAdapter.ViewHolder> {
     /** Number of caracters used for displaying item description */
     private static final int SHORT_DESCRIPTION_LENGTH = 400;
+    private final SimpleDateFormat mDateFormat;
     private View.OnClickListener mClickListener;
     private List<FutureItem> mList;
     private Context mContext;
 
     public FutureItemAdapter(View.OnClickListener clickListener){
         mClickListener = clickListener;
+        mDateFormat = new SimpleDateFormat("MMM d, yyyy");
     }
 
     @Override
@@ -52,7 +55,11 @@ class FutureItemAdapter extends RecyclerView.Adapter<FutureItemAdapter.ViewHolde
                     ? item.getDescription().substring(0, SHORT_DESCRIPTION_LENGTH)
                     : item.getDescription()));
             holder.description.setOnClickListener(holder);
-            Picasso.with(mContext).load(item.getImageUrl()).into(holder.image);
+            holder.date.setText(mDateFormat.format(item.getModificationDate()));
+            Picasso.with(mContext)
+                    .load(item.getImageUrl())
+                    .placeholder(android.R.drawable.ic_menu_gallery)
+                    .into(holder.image);
         }
     }
 
@@ -79,6 +86,8 @@ class FutureItemAdapter extends RecyclerView.Adapter<FutureItemAdapter.ViewHolde
         @BindView(R.id.image)
         ImageView image;
 
+        @BindView(R.id.date)
+        TextView date;
 
         public ViewHolder(View itemView) {
             super(itemView);

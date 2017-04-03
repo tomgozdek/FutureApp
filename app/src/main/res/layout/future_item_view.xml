@@ -29,6 +29,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        tools:src="@mipmap/ic_launcher"/>
+        android:src="@android:drawable/ic_menu_gallery"
+        tools:src="@android:drawable/ic_menu_gallery"/>
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        tools:text="Kwiecień 2, 2014"/>
+
 
 </LinearLayout>
