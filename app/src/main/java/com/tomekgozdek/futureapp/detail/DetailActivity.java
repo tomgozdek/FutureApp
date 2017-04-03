@@ -23,12 +23,12 @@ public class DetailActivity extends AppCompatActivity {
 
             if(fragment == null){
                 fragment = new DetailFragment();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.detail_frag_container, fragment)
+                        .commit();
             }
 
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.detail_frag_container, fragment)
-                    .commit();
 
             int orderId = getIntent().getIntExtra(EXTRA_ORDER_ID, -1);
             DetailPresenter presenter = new DetailPresenter(orderId, fragment);
