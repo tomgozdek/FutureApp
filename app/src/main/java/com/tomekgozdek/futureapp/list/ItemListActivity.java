@@ -2,13 +2,17 @@ package com.tomekgozdek.futureapp.list;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.TextView;
 
 import com.tomekgozdek.futureapp.R;
 import com.tomekgozdek.futureapp.detail.DetailActivity;
 import com.tomekgozdek.futureapp.detail.DetailFragment;
 import com.tomekgozdek.futureapp.detail.DetailPresenter;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ItemListActivity extends AppCompatActivity implements ListFragment.OnItemSelectedListener {
@@ -17,6 +21,9 @@ public class ItemListActivity extends AppCompatActivity implements ListFragment.
      * master-detail layout
      */
     private boolean showDetails = false;
+
+    @Nullable @BindView(R.id.no_item_prompt)
+    TextView msgPrompt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +66,8 @@ public class ItemListActivity extends AppCompatActivity implements ListFragment.
             intent.putExtra(DetailActivity.EXTRA_ORDER_ID, orderId);
             startActivity(intent);
         } else {
+            msgPrompt.setVisibility(View.GONE);
+
             DetailFragment detailFragment = new DetailFragment();
             DetailPresenter detailPresenter = new DetailPresenter(orderId, detailFragment);
             detailFragment.setPresenter(detailPresenter);

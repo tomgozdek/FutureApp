@@ -15,7 +15,6 @@ import com.squareup.picasso.Picasso;
 import com.tomekgozdek.futureapp.R;
 import com.tomekgozdek.futureapp.databinding.FutureItemDetailLayoutBinding;
 import com.tomekgozdek.futureapp.model.FutureItem;
-import com.tomekgozdek.futureapp.presenter.Presenter;
 import com.tomekgozdek.futureapp.web.WebViewActivity;
 
 import butterknife.BindView;

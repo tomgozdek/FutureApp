@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">FutureApp</string>
     <string name="item_short_description">%s ...more</string>
+    <string name="select_item_prompt">Select item on the left.</string>
 </resources>
