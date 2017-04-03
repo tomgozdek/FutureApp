@@ -45,8 +45,7 @@ public class FutureDeserializer implements JsonDeserializer<FutureItem>{
      */
     private void parseDescription(String[] result, String temp) {
         //TODO change this trivial logic to some regex
-        int urlStart = temp.lastIndexOf("https");
-        urlStart = urlStart != -1 ? temp.lastIndexOf("http") : urlStart;
+        int urlStart = temp.lastIndexOf("http");
         String description = temp;
         String url = "";
         if(urlStart != -1){
