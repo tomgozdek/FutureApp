@@ -22,8 +22,8 @@ public class ApiClient {
         if(retrofit == null){
 
             retrofit = new Retrofit.Builder().baseUrl(API_BASE_URL)
-                    .addConverterFactory(getGsonConverterFactory())
-                    .client(getHttpClient())
+                    .addConverterFactory(getGsonConverterFactory()) //set custom converter to properly parse Api response
+                    .client(getHttpClient()) //it takes a while to get response from Api so use custom http client with extended timeouts
                     .build();
         }
 
