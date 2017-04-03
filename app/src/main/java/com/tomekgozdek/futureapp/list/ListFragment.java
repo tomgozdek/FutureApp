@@ -6,9 +6,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.tomekgozdek.futureapp.R;
 import com.tomekgozdek.futureapp.model.FutureItem;
@@ -28,6 +30,10 @@ public class ListFragment extends Fragment implements ListPresenter.View, View.O
 
     @BindView(R.id.future_list)
     RecyclerView futureList;
+
+    @BindView(R.id.progress)
+    ProgressBar progressBar;
+
     private FutureItemAdapter mAdapter;
     private OnItemSelectedListener mCallback;
 
@@ -40,6 +46,8 @@ public class ListFragment extends Fragment implements ListPresenter.View, View.O
         mAdapter = new FutureItemAdapter(this);
         futureList.setLayoutManager(new LinearLayoutManager(getContext()));
         futureList.setAdapter(mAdapter);
+
+        progressBar.setIndeterminate(true);
 
         return view;
     }
@@ -68,6 +76,18 @@ public class ListFragment extends Fragment implements ListPresenter.View, View.O
     @Override
     public void loadItems(List<FutureItem> list) {
         mAdapter.setItems(list);
+    }
+
+    @Override
+    public void showProgress() {
+        Log.d("TOMEK", "showProgress: ");
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        Log.d("TOMEK", "hideProgress: ");
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override

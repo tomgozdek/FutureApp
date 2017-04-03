@@ -28,10 +28,11 @@ public class ListPresenter implements Presenter {
     }
     @Override
     public void onResume() {
-        downloadItems();
+        loadItemsFromRepository();
     }
 
     private void downloadItems() {
+        mView.showProgress();
         FutureService service = ApiClient.getApiClient().create(FutureService.class);
 
         Call<ApiResponse> request = service.listFutureItems();
@@ -42,12 +43,14 @@ public class ListPresenter implements Presenter {
                     storeItems(response.body().getData());
                 } else {
                     //TODO handle failure case
+                    mView.hideProgress();
                 }
             }
 
             @Override
             public void onFailure(Call<ApiResponse> call, Throwable t) {
                 //TODO handle failure case
+                mView.hideProgress();
             }
         });
     }
@@ -66,10 +69,17 @@ public class ListPresenter implements Presenter {
 
     private void loadItemsFromRepository(){
         FutureRealmRepository repository = new FutureRealmRepositoryImpl();
-        mView.loadItems(repository.getFutureItems());
+        if(repository.getFutureItems().isEmpty()){
+            downloadItems();
+        } else {
+            mView.loadItems(repository.getFutureItems());
+            mView.hideProgress();
+        }
     }
 
     interface View extends BasicView<ListPresenter>{
         void loadItems(List<FutureItem> list);
+        void showProgress();
+        void hideProgress();
     }
 }
