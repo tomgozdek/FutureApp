@@ -1,12 +1,11 @@
 package com.tomekgozdek.futureapp.model;
 
-import android.databinding.BaseObservable;
-
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * Model class representing FutureItem object retrieved from API.
@@ -18,6 +17,7 @@ public class FutureItem extends RealmObject{
 
     private String title;
     private String description;
+    @PrimaryKey
     private int orderId;
     private String url;
     @SerializedName("image_url")
