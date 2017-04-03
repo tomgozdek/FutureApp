@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
  * Created by TomekG on 2017-04-03.
  */
 
-public class ListFragment extends Fragment implements ListPresenter.View{
+public class ListFragment extends Fragment implements ListPresenter.View, View.OnClickListener{
 
     private ListPresenter mPresenter;
 
@@ -35,7 +35,7 @@ public class ListFragment extends Fragment implements ListPresenter.View{
         View view = inflater.inflate(R.layout.future_item_list_layout, container, false);
         ButterKnife.bind(this, view);
 
-        mAdapter = new FutureItemAdapter();
+        mAdapter = new FutureItemAdapter(this);
         futureList.setLayoutManager(new LinearLayoutManager(getContext()));
         futureList.setAdapter(mAdapter);
 
@@ -60,5 +60,10 @@ public class ListFragment extends Fragment implements ListPresenter.View{
     @Override
     public void loadItems(List<FutureItem> list) {
         mAdapter.setItems(list);
+    }
+
+    @Override
+    public void onClick(View view) {
+        mPresenter.onItemSelected((Integer) view.getTag());
     }
 }

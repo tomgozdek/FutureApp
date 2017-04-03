@@ -24,8 +24,13 @@ import butterknife.ButterKnife;
 class FutureItemAdapter extends RecyclerView.Adapter<FutureItemAdapter.ViewHolder> {
     /** Number of caracters used for displaying item description */
     private static final int SHORT_DESCRIPTION_LENGTH = 400;
+    private View.OnClickListener mClickListener;
     private List<FutureItem> mList;
     private Context mContext;
+
+    public FutureItemAdapter(View.OnClickListener clickListener){
+        mClickListener = clickListener;
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -40,11 +45,13 @@ class FutureItemAdapter extends RecyclerView.Adapter<FutureItemAdapter.ViewHolde
         FutureItem item = mList.get(position);
 
         if(item != null){
+            holder.setTag(item.getOrderId());
             holder.title.setText(item.getTitle().toUpperCase());
             holder.description.setText(mContext.getString(R.string.item_short_description,
                     item.getDescription().length() > SHORT_DESCRIPTION_LENGTH
                     ? item.getDescription().substring(0, SHORT_DESCRIPTION_LENGTH)
                     : item.getDescription()));
+            holder.description.setOnClickListener(holder);
             Picasso.with(mContext).load(item.getImageUrl()).into(holder.image);
         }
     }
@@ -59,7 +66,9 @@ class FutureItemAdapter extends RecyclerView.Adapter<FutureItemAdapter.ViewHolde
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+
+        private View parent;
 
         @BindView(R.id.title)
         TextView title;
@@ -73,7 +82,17 @@ class FutureItemAdapter extends RecyclerView.Adapter<FutureItemAdapter.ViewHolde
 
         public ViewHolder(View itemView) {
             super(itemView);
+            parent = ((ViewGroup) itemView).getChildAt(0);
             ButterKnife.bind(this,itemView);
+        }
+
+        public void setTag(int orderId){
+            parent.setTag(orderId);
+        }
+
+        @Override
+        public void onClick(View view) {
+            mClickListener.onClick(parent);
         }
     }
 }
