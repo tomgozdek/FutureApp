@@ -30,9 +30,7 @@ public class FutureRealmRepositoryImpl implements FutureRealmRepository {
         realm.executeTransactionAsync(new Realm.Transaction() {
                     @Override
                     public void execute(Realm realm) {
-                        for (FutureItem item : list) {
-                            realm.copyFromRealm(item);
-                        }
+                            realm.copyToRealmOrUpdate(list);
                     }
                 }, new Realm.Transaction.OnSuccess(){
 
