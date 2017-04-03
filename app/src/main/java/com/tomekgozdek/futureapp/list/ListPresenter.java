@@ -31,6 +31,11 @@ public class ListPresenter implements Presenter {
         loadItemsFromRepository();
     }
 
+    @Override
+    public void onDestroy() {
+
+    }
+
     private void downloadItems() {
         mView.showProgress();
         FutureService service = ApiClient.getApiClient().create(FutureService.class);

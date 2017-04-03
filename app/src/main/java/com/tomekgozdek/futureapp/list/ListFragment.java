@@ -42,6 +42,7 @@ public class ListFragment extends Fragment implements ListPresenter.View, View.O
         View view = inflater.inflate(R.layout.future_item_list_layout, container, false);
         ButterKnife.bind(this, view);
 
+        mPresenter = new ListPresenter(this);
         mAdapter = new FutureItemAdapter(this);
         futureList.setLayoutManager(new LinearLayoutManager(getContext()));
         futureList.setAdapter(mAdapter);
@@ -61,15 +62,6 @@ public class ListFragment extends Fragment implements ListPresenter.View, View.O
     public void onAttach(Context context) {
         super.onAttach(context);
         mCallback = (OnItemSelectedListener) getActivity();
-    }
-
-    @Override
-    public void setPresenter(ListPresenter presenter) {
-        if(presenter != null) {
-            mPresenter = presenter;
-        } else {
-            throw new NullPointerException("Presenter cannot be null");
-        }
     }
 
     @Override

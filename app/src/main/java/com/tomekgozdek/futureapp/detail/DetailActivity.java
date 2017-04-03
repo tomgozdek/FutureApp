@@ -9,8 +9,6 @@ import butterknife.ButterKnife;
 
 public class DetailActivity extends AppCompatActivity {
 
-    public static final String EXTRA_ORDER_ID = "extra_order_id";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,16 +21,12 @@ public class DetailActivity extends AppCompatActivity {
 
             if(fragment == null){
                 fragment = new DetailFragment();
+                fragment.setArguments(getIntent().getExtras());
                 getSupportFragmentManager()
                         .beginTransaction()
                         .add(R.id.detail_frag_container, fragment)
                         .commit();
             }
-
-
-            int orderId = getIntent().getIntExtra(EXTRA_ORDER_ID, -1);
-            DetailPresenter presenter = new DetailPresenter(orderId, fragment);
-            fragment.setPresenter(presenter);
         }
     }
 }

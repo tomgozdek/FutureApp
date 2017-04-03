@@ -1,10 +1,12 @@
 package com.tomekgozdek.futureapp.detail;
 
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +32,8 @@ public class DetailFragment extends Fragment implements DetailPresenter.View{
     private DetailPresenter mPresenter;
     private FutureItemDetailLayoutBinding viewBinding;
 
+    public static final String EXTRA_ORDER_ID = "extra_order_id";
+
     @BindView(R.id.image)
     ImageView imageView;
 
@@ -42,6 +46,9 @@ public class DetailFragment extends Fragment implements DetailPresenter.View{
     @BindView(R.id.details)
     ViewGroup detailsContainer;
 
+    /** The orderId of item which details will be displayed in this fragment */
+    private int mOrderId;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,22 +56,24 @@ public class DetailFragment extends Fragment implements DetailPresenter.View{
         View view = viewBinding.getRoot();
         ButterKnife.bind(this, view);
 
+        mOrderId = savedInstanceState != null
+                        ? savedInstanceState.getInt(EXTRA_ORDER_ID, 0)
+                        : getArguments().getInt(EXTRA_ORDER_ID, 0);
+
+        mPresenter = new DetailPresenter(mOrderId, this);
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(EXTRA_ORDER_ID, mOrderId);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         mPresenter.onResume();
-    }
-
-    @Override
-    public void setPresenter(DetailPresenter presenter) {
-        if(presenter != null) {
-            mPresenter = presenter;
-        } else {
-            throw new NullPointerException("Presenter cannot be null");
-        }
     }
 
     @Override

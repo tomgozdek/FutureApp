@@ -7,8 +7,4 @@ package com.tomekgozdek.futureapp.presenter;
  */
 
 public interface BasicView<T> {
-    /**
-     * Associates view with presenter.
-     */
-    void setPresenter(T presenter);
 }

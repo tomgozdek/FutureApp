@@ -37,6 +37,11 @@ public class DetailPresenter implements Presenter{
         loadOrderId();
     }
 
+    @Override
+    public void onDestroy() {
+
+    }
+
     private void loadOrderId() {
         FutureRealmRepository repository = new FutureRealmRepositoryImpl();
         mCurrentFutureItem = repository.getFutureItemByOrderId(mOrderId);

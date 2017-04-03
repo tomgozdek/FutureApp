@@ -36,17 +36,13 @@ public class ItemListActivity extends AppCompatActivity implements ListFragment.
         if(ButterKnife.findById(this, R.id.list_frag_container) != null){
             ListFragment listFragment = (ListFragment) getSupportFragmentManager().findFragmentById(R.id.list_frag_container);
 
-            if(listFragment == null){
+            if (listFragment == null) {
                 listFragment = new ListFragment();
                 getSupportFragmentManager()
                         .beginTransaction()
                         .add(R.id.list_frag_container, listFragment)
                         .commit();
             }
-
-
-            ListPresenter listPresenter = new ListPresenter(listFragment);
-            listFragment.setPresenter(listPresenter);
         }
     }
 
@@ -63,20 +59,21 @@ public class ItemListActivity extends AppCompatActivity implements ListFragment.
         //if we are not in master-detail layout just start another activity with detail fragment
         if(!showDetails) {
             Intent intent = new Intent(this, DetailActivity.class);
-            intent.putExtra(DetailActivity.EXTRA_ORDER_ID, orderId);
+            intent.putExtra(DetailFragment.EXTRA_ORDER_ID, orderId);
             startActivity(intent);
         } else {
             msgPrompt.setVisibility(View.GONE);
 
             DetailFragment detailFragment = new DetailFragment();
-            DetailPresenter detailPresenter = new DetailPresenter(orderId, detailFragment);
-            detailFragment.setPresenter(detailPresenter);
 
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.detail_frag_container, detailFragment)
-                    .addToBackStack(null)
                     .commit();
+
+            Bundle bundle = new Bundle();
+            bundle.putInt(DetailFragment.EXTRA_ORDER_ID, orderId);
+            detailFragment.setArguments(bundle);
         }
     }
 }
